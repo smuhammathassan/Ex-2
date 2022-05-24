@@ -34,7 +34,7 @@ contract Case3 is VRFConsumerBaseV2 {
         COORDINATOR = VRFCoordinatorV2Interface(vrfCoordinator);
         s_subscriptionId = subscriptionId;
         owner = msg.sender;
-        deadline = block.timestamp + 1 minutes;
+        deadline = block.timestamp + 30 days;
         heirSetter = _heirSetter;
         heirs = [_heir1, _heir2, _heir3];
     }
@@ -80,7 +80,7 @@ contract Case3 is VRFConsumerBaseV2 {
     }
 
     function designateHeir() public deadlinePassed onlyHeirSetter {
-        deadline = block.timestamp + 1 minutes;
+        deadline = block.timestamp + 30 days;
         lock = false;
         owner = heirs[s_randomWords[0]];
     }
@@ -92,13 +92,13 @@ contract Case3 is VRFConsumerBaseV2 {
     function withdraw(uint256 _amountInWei) public payable onlyOwner {
         //uint256 amountInWei = _amount * 10**18;
         if (_amountInWei == 0) {
-            deadline = block.timestamp + 1 minutes;
+            deadline = block.timestamp + 30 days;
         } else {
             require(
                 address(this).balance >= _amountInWei,
                 "Not enough balance!"
             );
-            deadline = block.timestamp + 1 minutes;
+            deadline = block.timestamp + 30 days;
             payable(msg.sender).transfer(_amountInWei);
         }
     }

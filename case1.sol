@@ -11,7 +11,7 @@ contract Case1 {
 
     constructor(address _heirSetter) {
         admin = msg.sender;
-        deadline = block.timestamp + 1 minutes;
+        deadline = block.timestamp + 30 days;
         heirSetter = _heirSetter;
     }
 
@@ -27,7 +27,7 @@ contract Case1 {
 
     function designateHeir(address _newAdmin) public deadlinePassed {
         require(msg.sender == heirSetter, "You are not Heir Setter");
-        deadline = block.timestamp + 1 minutes;
+        deadline = block.timestamp + 30 days;
         admin = _newAdmin;
     }
 
@@ -38,13 +38,13 @@ contract Case1 {
     function withdraw(uint256 _amountInWei) public payable onlyOwner {
         //uint256 amountInWei = _amount * 10**18;
         if (_amountInWei == 0) {
-            deadline = block.timestamp + 1 minutes;
+            deadline = block.timestamp + 30 days;
         } else {
             require(
                 address(this).balance >= _amountInWei,
                 "Not enough balance!"
             );
-            deadline = block.timestamp + 1 minutes;
+            deadline = block.timestamp + 30 days;
             payable(msg.sender).transfer(_amountInWei);
         }
     }
